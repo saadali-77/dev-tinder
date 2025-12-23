@@ -1,0 +1,20 @@
+{
+  "name": "dev-tinder",
+  "version": "1.0.0",
+  "description": "first project",
+  "keywords": [
+    "javascript",
+    "nodejs"
+  ],
+  "license": "ISC",
+  "author": "saadali",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/app.mjs",
+    "dev":"nodemon src/app.mjs"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
