@@ -1,13 +1,18 @@
 
-import express from 'express'
-
+import express from "express"
+import { Auth } from "./middleware/auth.mjs"
 const app = express()
+app.use('/admin',Auth)
 
-app.use('/user', (req, res,next) => {
-  res.send('Hello World express')
-  next()
-},(req,res)=>{
-res.send('welcome to second')
+app.get('/admin',(req,res)=>{
+  res.send('get admin')
+})
+
+app.get('/admin/getall',(req,res)=>{
+  res.send('get all data')
+})
+app.get('/admin/delete',(req,res)=>{
+  res.send('delete the user')
 })
 //app.post('/user', (req, res) => {
  // res.send('Hello World ')
