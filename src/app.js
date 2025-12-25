@@ -4,23 +4,20 @@ const User=  require('./models/user')
  const connectDB=    require('./config/database')
 const app = express()
 app.use(express.json())
-app.get('/user',async(req,res)=>{
- // const users= req.body.email
-  try{
-    const users= await User.find({})
+app.delete('/user',async(req,res)=>{
+  const user= req.body.id
+  try{//delete user by id
+    const users= await User.findByIdAndDelete(user)
    // const user  = await User.find({email:useremail})
-   if(!users){
-  res.status(404).send('did not found data')
-   }else {
-    res.send(users)
+   res.send('user deleted sucessfully')
   }
- } 
-
- 
  catch(err){
-
+  res.send('got some error')
  }
+
 })
+ 
+
 app.post('/signup',async(req,res)=>{
  
    const user= new User(req.body)
