@@ -4,13 +4,16 @@ const User=  require('./models/user')
  const connectDB=    require('./config/database')
 const app = express()
 app.use(express.json())
-app.delete('/user',async(req,res)=>{
-  const user= req.body.id
+app.patch('/user',async(req,res)=>{
+  const userid= req.body.userid;
+  const data=req.body;
   try{//delete user by id
-    const users= await User.findByIdAndDelete(user)
+    const users= await User.findByIdAndUpdate({_id:userid},data,{returnDocument:"before"})
    // const user  = await User.find({email:useremail})
-   res.send('user deleted sucessfully')
-  }
+   
+   console.log(users)
+   res.send('user updated successful')
+  } 
  catch(err){
   res.send('got some error')
  }
