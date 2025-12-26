@@ -17,12 +17,21 @@ app.post('/signup',async(req,res)=>{
    res.send('user added successfully')
     })
 
-app.patch('/signup',async(req,res)=>{
-  const userid= req.body.userid;
+app.patch('/signup/:userid',async(req,res)=>{
+  const userid= req.params?.userid;
   const data=req.body;
-  try{//delete user by id
+  try{
+    const updateuser=['firstName','lastName','password','skill','gender']
+    const isupdated= Object.keys(data).every(k=> updateuser.includes(k))
+    console.log(isupdated)
+    if(!isupdated){
+      throw new Error('cannot update this field')
+    }
+    if(data?.skill.length>10){
+      throw new Error('cannot set skills more than 10')
+    }
     const users= await User.findByIdAndUpdate({_id:userid},data,{returnDocument:"before"})
-   // const user  = await User.find({email:useremail})
+   
    
    console.log(users)
    res.send('user updated successful')
