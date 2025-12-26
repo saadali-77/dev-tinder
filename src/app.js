@@ -4,7 +4,20 @@ const User=  require('./models/user')
  const connectDB=    require('./config/database')
 const app = express()
 app.use(express.json())
-app.patch('/user',async(req,res)=>{
+app.post('/signup',async(req,res)=>{
+  const userobj={
+    firstName:'saad',
+    lastName:'ali',
+    email:'bilal1243@gmail.com',
+    password:'1122',
+    gender:'male'
+  } 
+  const user= new User(userobj)
+   await user.save()
+   res.send('user added successfully')
+    })
+
+app.patch('/signup',async(req,res)=>{
   const userid= req.body.userid;
   const data=req.body;
   try{//delete user by id
