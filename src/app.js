@@ -1,21 +1,22 @@
 
 const express= require('express') 
 const User=  require('./models/user')
+   const {signupvalidate}= require('./utils/validation')
  const connectDB=    require('./config/database')
 const app = express()
 app.use(express.json())
 app.post('/signup',async(req,res)=>{
-  const userobj={
-    firstName:'jackyy',
-    lastName:'micely',
-    email:'saadali@gmail.com',
-    password:'Saad5912@',
-    gender:'male'
-  } 
-  const user= new User(userobj)
+  try{
+  signupvalidate(req)
+  
+  const user= new User(req.body)
    await user.save()
    res.send('user added successfully')
-    })
+    }
+    catch(err){
+     res.send('Error:' + err.message)
+    }
+  })
 
 app.patch('/signup/:userid',async(req,res)=>{
   const userid= req.params?.userid;
