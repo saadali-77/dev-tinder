@@ -6,10 +6,10 @@ const app = express()
 app.use(express.json())
 app.post('/signup',async(req,res)=>{
   const userobj={
-    firstName:'saad',
-    lastName:'ali',
-    email:'bilal1243@gmail.com',
-    password:'1122',
+    firstName:'jackyy',
+    lastName:'micely',
+    email:'saadali@gmail.com',
+    password:'Saad5912@',
     gender:'male'
   } 
   const user= new User(userobj)
