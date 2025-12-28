@@ -13,4 +13,4 @@ const signupvalidate=(req)=>{
     
   }
 }
-module.exports= {signupvalidate}
+module.exports = { signupvalidate }
