@@ -43,7 +43,12 @@ authRouter.post('/signup',async(req,res)=>{
       res.send('Error:' + err.message)
     }
   })
-
+authRouter.post('/logout',(req,res)=>{
+  res.cookie('token',null,{
+    expires:new Date(Date.now())
+  })
+  res.send()
+})
 
 
 

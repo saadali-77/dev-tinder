@@ -13,4 +13,9 @@ const signupvalidate=(req)=>{
     
   }
 }
-module.exports = { signupvalidate }
+const validateprofile=(req)=>{
+    const AllowEdit = ["firstName","email","skill","age","about","gender"]
+  const ismatched=  Object.keys(req.body).every(field=>AllowEdit.includes(field))
+  return ismatched;
+}
+module.exports = { signupvalidate,validateprofile }
