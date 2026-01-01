@@ -1,15 +1,17 @@
 
 const express= require('express') 
-//const User=  require('./models/user')
+const User=  require('./models/user')
 //const bcrypt= require('bcrypt')
  const cookieparser=   require('cookie-parser')
  //const {signupvalidate}= require('./utils/validation')
  const connectDB=    require('./config/database')
+ 
  //const jwt= require('jsonwebtoken')
 // const {Auth} =require('./middleware/auth')
 const authRouter= require('./routes/auth')
 const profileRouter= require('./routes/profile')
 const requestRouter= require('./routes/request')
+const userRouter= require('./routes/user')
 const app = express()
 
  app.use(cookieparser())
@@ -17,6 +19,7 @@ const app = express()
  app.use('/',authRouter)
  app.use('/',profileRouter)
  app.use('/',requestRouter)
+ app.use('/',userRouter)
 //app.post('/signup',async(req,res)=>{
   //try{
   // signupvalidate(req)
@@ -105,8 +108,8 @@ app.patch('/signup/:userid',async(req,res)=>{
 app.post('/signup',async(req,res)=>{
  
    const user= new User(req.body)
-   await user.save()
-   res.send('user added successfully')
+  const data= await user.save()
+   res.send('user added successfully' + data)
     })
    
     

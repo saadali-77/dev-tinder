@@ -3,17 +3,19 @@ const { schema } = require('./user')
 const connectionReq= new mongoose.Schema({
   fromuserid:{
     type:mongoose.Schema.Types.ObjectId,
-    require:true
+    require:true,
+    ref:'user'
   },
   touserid:{
     type:mongoose.Schema.Types.ObjectId,
-    require:true
+    require:true,
+    ref:'user'
   },
   status:{
     type:String,
      require:true,
     enum:{
-     values:["accepted","rejected","ignore","interested"], 
+     values:["accepted","rejected","ignored","interested"], 
      message:`{values} is not include`
     }
   }

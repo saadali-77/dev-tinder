@@ -1,5 +1,6 @@
 const express= require('express')
 const requestRouter= express.Router();
+//const Auth= require('../middleware/auth')
 const ConnectionReq= require('../models/connectionReq')
 const User= require('../models/user')
 const {Auth} =require('../middleware/auth')
@@ -45,5 +46,29 @@ if(existingReq){
   }
   
   res.send('data sent by'+ User.firstName )
+})
+requestRouter.post('/request/review/:status/:requestid',Auth,async(req,res)=>{
+try{
+  const loginuser=req.user
+  const {status,requestid}= req.params
+const allowedstatus= ['accepted','rejected'] 
+if(!allowedstatus.includes(status)){
+  return res.json({message:'status is not allowed'})
+}
+  const connectionReq= await ConnectionReq.findOne({
+    _id:requestid,
+    touserid:loginuser._id,
+    status:'interested'
+  })
+  if(!connectionReq){
+    return res.json({message:'connection  request id not in db'})
+  }
+  connectionReq.status= status;
+ const data= await connectionReq.save();
+ res.json({message:" connection requested " +status ,})
+}
+catch(err){
+  res.send('ERR' + err.message)
+}
 })
 module.exports= requestRouter
